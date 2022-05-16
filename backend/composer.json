@@ -1,0 +1,19 @@
+{
+  "name": "plastonick/fpl-league-race",
+  "type": "project",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "Plastonick\\FplLeagueRace\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "David Pugh"
+    }
+  ],
+  "require": {
+    "cache/filesystem-adapter": "^1.2",
+    "ext-json": "*"
+  }
+}
