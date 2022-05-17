@@ -6,7 +6,7 @@ use Cache\Adapter\Filesystem\FilesystemCachePool;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$leagueId = $_GET['leagueId'] ?? 314;
+$leagueId = $_GET['leagueId'] ?? 999;
 
 $filesystemAdapter = new Local('/var/tmp/cache');
 $filesystem = new Filesystem($filesystemAdapter);
@@ -53,7 +53,7 @@ function getLeagueRaceData($leagueId, array $eventDateMap)
     $leagueData = json_decode($standingsData, true);
     $results = $leagueData['standings']['results'];
 
-    $output = [];
+    $output = [['Date', 'Name', 'Value']];
     foreach ($results as $result) {
         $id = $result['entry'];
         $name = $result['player_name'] . ' - ' . $result['entry_name'];
@@ -68,9 +68,10 @@ function getLeagueRaceData($leagueId, array $eventDateMap)
         foreach ($cumulativePoints as $points) {
             $date = $eventDateMap[$i];
 
-            $output[$name][] = [
-                'date' => $date,
-                'name' => $points
+            $output[] = [
+                $date,
+                $name,
+                $points
             ];
 
             $i += 1;
