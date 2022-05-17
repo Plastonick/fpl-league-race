@@ -53,11 +53,10 @@ function getLeagueRaceData($leagueId, array $eventDateMap)
     $leagueData = json_decode($standingsData, true);
     $results = $leagueData['standings']['results'];
 
-    $output = [0 => ['Date']];
+    $output = [];
     foreach ($results as $result) {
         $id = $result['entry'];
         $name = $result['player_name'] . ' - ' . $result['entry_name'];
-        $output[0][] = $name;
 
         $playerResults = json_decode(
             file_get_contents("https://fantasy.premierleague.com/api/entry/{$id}/history/"),
@@ -69,11 +68,8 @@ function getLeagueRaceData($leagueId, array $eventDateMap)
         foreach ($cumulativePoints as $points) {
             $date = $eventDateMap[$i];
 
-            if (!isset($output[$date])) {
-                $output[$date][] = $date;
-            }
-
-            $output[$date][] = $points;
+            $output[$date]['Date'] = $date;
+            $output[$date][$name] = $points;
 
             $i += 1;
         }

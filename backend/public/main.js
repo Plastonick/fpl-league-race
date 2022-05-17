@@ -8,8 +8,7 @@ function submitLeague () {
   http.get('/race-data', {params: {leagueId: document.getElementById('league-id').value}})
     .then(function (response) {
       // handle success
-      console.log(response)
-      createBarChartRace(response.data, 11, 1000)
+      createBarChartRace(response.data, 11, 3000)
     })
     .catch(function (error) {
       // handle error
@@ -81,7 +80,7 @@ function createBarChartRace (data, top_n, tickDuration) {
 
   // draw the first frame
 
-  const [time, row_data] = getRowData(data, column_names, 0)
+  let [time, row_data] = getRowData(data, column_names, 0)
 
   const start_date = d3.min(data, d => d[time_index])
   const end_date = d3.max(data, d => d[time_index])
