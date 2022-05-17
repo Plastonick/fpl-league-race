@@ -81,10 +81,10 @@ function createBarChartRace (data, top_n, tickDuration) {
 
   // draw the first frame
 
-  [time, row_data] = getRowData(data, column_names, 0)
+  const [time, row_data] = getRowData(data, column_names, 0)
 
-  start_date = d3.min(data, d => d[time_index])
-  end_date = d3.max(data, d => d[time_index])
+  const start_date = d3.min(data, d => d[time_index])
+  const end_date = d3.max(data, d => d[time_index])
 
   let t = d3.scaleTime()
     .domain([start_date, end_date])
