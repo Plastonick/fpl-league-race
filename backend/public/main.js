@@ -8,7 +8,8 @@ function submitLeague () {
   http.get('/race-data', {params: {leagueId: document.getElementById('league-id').value}})
     .then(function (response) {
       // handle success
-      createBarChartRace(response.data, 11, 3000)
+      const numberPlayers = Object.keys(response.data[0]).length - 1
+      createBarChartRace(response.data, Math.min(15, numberPlayers), 3000)
     })
     .catch(function (error) {
       // handle error
