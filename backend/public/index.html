@@ -12,7 +12,7 @@
 <script src="main.js"></script>
 
 <div class="card-container">
-    <div class="card">
+    <div class="menu card">
         <div class="submit">
             <div class="column description">
                 Please enter your league ID. You can find this by navigating to your mini-league and extracting the
@@ -20,17 +20,19 @@
             </div>
 
             <div class="column">
-                <form onsubmit="return false">
-                    <label for="league-id">League ID: </label>
-                    <input id="league-id" type="text"/>
-                    <input type="submit" id="submit-league" value="Submit"/>
+                <form class="league-id-submit" onsubmit="return false">
+                    <div class="text-input">
+                        <label for="league-id">League ID</label>
+                        <input id="league-id" type="text" placeholder="123"/>
+                    </div>
+                    <input type="submit" class="button" id="submit-league" value="Submit"/>
                 </form>
             </div>
         </div>
     </div>
 
     <div class="chart-wrapper card">
-        <div id="bar-chart-race" style="width:100%; height: 650px"></div>
+        <div id="bar-chart-race"></div>
     </div>
 </div>
 </body>
@@ -40,6 +42,11 @@
 <style>
     body {
         background-color: #eee;
+
+        font-family: "Open Sans", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 300;
+        line-height: 1.6;
     }
 
     .chart-wrapper {
@@ -78,12 +85,21 @@
         display: none;
     }
 
-    #bar-chart-race > svg {
-        padding: 2em;
-    }
-
     .submit > * {
         padding: 0 1em;
+    }
+
+    .submit > *:not(:last-child) {
+        border-right: 0.5px solid #aaa;
+    }
+
+    .league-id-submit {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .league-id-submit > * {
+        flex-grow: 1;
     }
 
     .column {
@@ -94,5 +110,66 @@
 
     .column.description {
         flex: 2;
+    }
+
+    .chart-wrapper div {
+        margin: 3em;
+    }
+
+    #bar-chart-race {
+        height: 600px;
+    }
+
+    .menu {
+        max-height: 8em;
+    }
+
+    html, body, .card-container {
+        height: 100%;
+    }
+
+    input.button {
+        border-radius: 2px;
+        background-color: #fff;
+        box-shadow: none;
+        border: 0.5px solid #aaa;
+        padding: 5px;
+        height: fit-content;
+        margin-top: auto;
+        margin-bottom: auto;
+        cursor: pointer;
+    }
+
+    input.button:hover {
+        background-color: #eee;
+    }
+
+    .text-input {
+        position: relative;
+        padding: 15px 0 0;
+        margin-top: 10px;
+        width: 50%;
+    }
+
+    .text-input input {
+        font-family: inherit;
+        width: 100%;
+        border: 0;
+        border-bottom: 1px solid #eee;
+        outline: 0;
+        font-size: 1.3rem;
+        color: #fff;
+        padding: 7px 0;
+        background: transparent;
+        caret-color: #aaa;
+    }
+
+    .text-input label {
+        position: absolute;
+        top: 0;
+        display: block;
+        transition: 0.2s;
+        font-size: 1rem;
+        font-weight: 300;
     }
 </style>
