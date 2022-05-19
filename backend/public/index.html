@@ -14,15 +14,18 @@
 <div class="card-container">
     <div class="card">
         <div class="submit">
-            <p>
-                Please enter your league ID. You can find this by navigating to your mini-league and extracting the numeric ID from the URL.
-            </p>
+            <div class="column description">
+                Please enter your league ID. You can find this by navigating to your mini-league and extracting the
+                numeric ID from the URL.
+            </div>
 
-            <form onsubmit="return false">
-                <label for="league-id">League ID: </label>
-                <input id="league-id" type="text"/>
-                <input type="submit" id="submit-league" value="Submit"/>
-            </form>
+            <div class="column">
+                <form onsubmit="return false">
+                    <label for="league-id">League ID: </label>
+                    <input id="league-id" type="text"/>
+                    <input type="submit" id="submit-league" value="Submit"/>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -61,10 +64,10 @@
     }
 
     .card .submit {
-        margin-left: auto;
-        margin-right: auto;
         width: fit-content;
-        height: 100px;
+        margin: 1em auto;
+        display: flex;
+        flex-wrap: wrap;
     }
 
     path.domain {
@@ -77,5 +80,19 @@
 
     #bar-chart-race > svg {
         padding: 2em;
+    }
+
+    .submit > * {
+        padding: 0 1em;
+    }
+
+    .column {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .column.description {
+        flex: 2;
     }
 </style>
