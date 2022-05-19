@@ -32,7 +32,13 @@
     </div>
 
     <div class="chart-wrapper card">
-        <div id="bar-chart-race"></div>
+        <div id="bar-chart-race">
+            <div class="help">
+                <div class="button">
+                    How do I use this?
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>
@@ -112,7 +118,7 @@
         flex: 2;
     }
 
-    .chart-wrapper div {
+    .chart-wrapper > div {
         margin: 3em;
     }
 
@@ -128,7 +134,7 @@
         height: 100%;
     }
 
-    input.button {
+    .button {
         border-radius: 2px;
         background-color: #fff;
         box-shadow: none;
@@ -140,7 +146,7 @@
         cursor: pointer;
     }
 
-    input.button:hover {
+    .button:hover {
         background-color: #eee;
     }
 
@@ -171,5 +177,22 @@
         transition: 0.2s;
         font-size: 1rem;
         font-weight: 300;
+    }
+
+    .help {
+        height: 5em;
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        font-size: 2em;
+        text-align: center;
+    }
+
+    .help > .button {
+        margin-right: auto;
+        margin-left: auto;
+        width: fit-content;
+        padding: 1em;
     }
 </style>
