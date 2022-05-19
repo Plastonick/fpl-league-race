@@ -5,7 +5,7 @@ window.addEventListener('load', () => {
 
 function toggleHelp () {
   document.getElementById('toggle-help-button').style.display = 'none'
-  document.getElementById('help-demo').style.display = 'block'
+  document.getElementById('help-demo').innerHTML = '<img src="https://i.imgur.com/N4WFfDC.gif" alt="Demo showing how to grab league ID">'
 }
 
 function submitLeague () {
