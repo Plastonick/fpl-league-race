@@ -34,8 +34,11 @@
     <div class="chart-wrapper card">
         <div id="bar-chart-race">
             <div class="help">
-                <div class="button">
+                <div class="button" id="toggle-help-button">
                     How do I use this?
+                </div>
+                <div class="demo" id="help-demo">
+                    <img src="https://i.imgur.com/N4WFfDC.gif">
                 </div>
             </div>
         </div>
@@ -180,7 +183,6 @@
     }
 
     .help {
-        height: 5em;
         margin: 0;
         position: absolute;
         top: 50%;
@@ -194,5 +196,9 @@
         margin-left: auto;
         width: fit-content;
         padding: 1em;
+    }
+
+    .help .demo {
+        display: none;
     }
 </style>

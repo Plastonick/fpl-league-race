@@ -1,6 +1,12 @@
 window.addEventListener('load', () => {
   document.getElementById('submit-league').onclick = submitLeague
+  document.getElementById('toggle-help-button').onclick = toggleHelp
 })
+
+function toggleHelp () {
+  document.getElementById('toggle-help-button').style.display = 'none'
+  document.getElementById('help-demo').style.display = 'block'
+}
 
 function submitLeague () {
   const http = axios
