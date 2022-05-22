@@ -2,47 +2,47 @@
 <html>
 
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8" />
     <title>Fantasy League Race</title>
 </head>
 
 <body>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://d3js.org/d3.v5.min.js"></script>
-<script src="main.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="main.js"></script>
 
-<div class="card-container">
-    <div class="menu card">
-        <div class="submit">
-            <div class="column description">
-                Please enter your league ID. You can find this by navigating to your mini-league and extracting the
-                numeric ID from the URL.
+    <div class="card-container">
+        <div class="menu card">
+            <div class="submit">
+                <div class="column description">
+                    Please enter your league ID. You can find this by navigating to your mini-league and extracting the
+                    numeric ID from the URL.
+                </div>
+
+                <div class="column">
+                    <form class="league-id-submit" onsubmit="return false">
+                        <div class="text-input">
+                            <label for="league-id">League ID</label>
+                            <input id="league-id" type="text" placeholder="123" />
+                        </div>
+                        <input type="submit" class="button" id="submit-league" value="Submit" />
+                    </form>
+                </div>
             </div>
+        </div>
 
-            <div class="column">
-                <form class="league-id-submit" onsubmit="return false">
-                    <div class="text-input">
-                        <label for="league-id">League ID</label>
-                        <input id="league-id" type="text" placeholder="123"/>
+        <div class="chart-wrapper card">
+            <div id="bar-chart-race">
+                <div class="help">
+                    <div class="button" id="toggle-help-button">
+                        How do I use this?
                     </div>
-                    <input type="submit" class="button" id="submit-league" value="Submit"/>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="chart-wrapper card">
-        <div id="bar-chart-race">
-            <div class="help">
-                <div class="button" id="toggle-help-button">
-                    How do I use this?
-                </div>
-                <div class="demo" id="help-demo">
+                    <div class="demo" id="help-demo">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 
 </html>
@@ -93,13 +93,13 @@
         display: none;
     }
 
-    .submit > * {
+    .submit>* {
         padding: 0 1em;
         margin-top: auto;
         margin-bottom: auto;
     }
 
-    .submit > *:not(:last-child) {
+    .submit>*:not(:last-child) {
         border-right: 0.5px solid #aaa;
     }
 
@@ -108,7 +108,7 @@
         flex-direction: row;
     }
 
-    .league-id-submit > * {
+    .league-id-submit>* {
         flex-grow: 1;
     }
 
@@ -122,7 +122,7 @@
         flex: 2;
     }
 
-    .chart-wrapper > div {
+    .chart-wrapper>div {
         margin: 3em;
     }
 
@@ -134,7 +134,9 @@
         max-height: 8em;
     }
 
-    html, body, .card-container {
+    html,
+    body,
+    .card-container {
         height: 100%;
     }
 
@@ -184,17 +186,14 @@
     }
 
     .help {
-        margin: 0;
-        position: absolute;
-        top: 50%;
-        width: 100%;
+        display: flex;
+        align-items: center;
+        height: 100%;
         font-size: 2em;
-        text-align: center;
     }
 
-    .help > .button {
-        margin-right: auto;
-        margin-left: auto;
+    .help>.button {
+        margin: auto;
         width: fit-content;
         padding: 1em;
     }
