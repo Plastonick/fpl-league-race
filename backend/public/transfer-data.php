@@ -82,8 +82,6 @@ foreach ($elements as $element) {
 //first_name
 //second_name
 
-$top = 12;
-
 /**
  * @param int $playerId
  * @param array $elementsById
@@ -157,13 +155,7 @@ function getPlayersData(int $playerId, array $elementsById, CacheInterface $pool
 $rows = getPlayersData($playerId, $elementsById, $pool);
 
 echo <<<HTML
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Transfers</title>
-	</head>
-    <body>
-      <div class="container">
+<div class="container">
 HTML;
 
 function getTeamClass(int $team): string
@@ -193,20 +185,29 @@ function getTeamClass(int $team): string
     };
 }
 
-$width = 6;
-$rowHeight = 2.5;
+$width = 5.73;
+$rowHeight = 2.35;
+
+$w2 = 2 * $width;
+$w3 = 3 * $width;
+$w5 = 5 * $width;
+
+$l1 = $width + 1;
+$l2 = $l1 + 1 + $w2;
+$l3 = $l2 + 1 + $w5;
+$l4 = $l3 + 1 + $w5;
 
 echo <<<HTML
-<div style="height: {$rowHeight}%; width: 12%; left: 7%; top: 4%" class="header element">
+<div style="height: {$rowHeight}%; width: {$w2}%; left: {$l1}%; top: 4%" class="header element">
 Goalkeepers
 </div>
-<div style="height: {$rowHeight}%; width: 30%; left: 20%; top: 4%" class="header element">
+<div style="height: {$rowHeight}%; width: {$w5}%; left: {$l2}%; top: 4%" class="header element">
 Defenders
 </div>
-<div style="height: {$rowHeight}%; width: 30%; left: 51%; top: 4%" class="header element">
+<div style="height: {$rowHeight}%; width: {$w5}%; left: {$l3}%; top: 4%" class="header element">
 Midfields
 </div>
-<div style="height: {$rowHeight}%; width: 18%; left: 82%; top: 4%" class="header element">
+<div style="height: {$rowHeight}%; width: {$w3}%; left: {$l4}%; top: 4%" class="header element">
 Forwards
 </div>
 HTML;
@@ -240,14 +241,12 @@ HTML;
 }
 
 echo <<<HTML
-      </div>
-    </body>
-</html>
+</div>
 <style>
 .container {
   position: relative;
-  height: 90vh;
-  width: 90vw;
+  height: 100%;
+  width: 100%;
 }
 
 .element {
