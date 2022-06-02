@@ -252,17 +252,12 @@ echo <<<HTML
 .element {
   position: absolute;
   overflow: hidden; 
-  font-size: x-small;
+  font-size: 10px;
   display: flex;
   border: 0.5px solid #aaa; 
   justify-content: center;
   align-items: center;
   text-align: center;
-    text-shadow:
-        0.07em 0 black,
-        0 0.07em black,
-        -0.07em 0 black,
-        0 -0.07em black;
 }
 
 .row {
@@ -300,7 +295,7 @@ echo <<<HTML
 }
 
 .burnley {
-  color: #fff30d; 
+  color: #6c1d45; 
   background-color: #97d9f6;
 }
 
@@ -335,7 +330,7 @@ echo <<<HTML
 }
 
 .man-city {
-  color: #ffc758; 
+  color: #fff; 
   background-color: #97c1e7;
 }
 
