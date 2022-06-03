@@ -42,12 +42,16 @@ enum Chip: string
 {
     case FREEHIT = 'FH';
     case WILDCARD = 'WC';
+    case TRIPLE_CAPTAIN = 'TC';
+    case BENCH_BOOST = 'BB';
 
     public static function fromString(?string $chip): ?self
     {
         return match ($chip) {
             'freehit' => self::FREEHIT,
             'wildcard' => self::WILDCARD,
+            '3xc' => self::TRIPLE_CAPTAIN,
+            'bboost' => self::BENCH_BOOST,
             default => null
         };
     }
@@ -297,8 +301,16 @@ echo <<<HTML
 }
 
 .row.WC {
-  background-color: #8fff57;
+  background-color: #57ff8f;
   color: #000;
+}
+
+.row.TC {
+  background-color: #ff5757;
+}
+
+.row.BB {
+  background-color: #ff57e3;
 }
 
 .header {
