@@ -38,8 +38,27 @@ class PlayerSprint
     }
 }
 
+enum Chip: string
+{
+    case FREEHIT = 'FH';
+    case WILDCARD = 'WC';
+
+    public static function fromString(?string $chip): ?self
+    {
+        return match ($chip) {
+            'freehit' => self::FREEHIT,
+            'wildcard' => self::WILDCARD,
+            default => null
+        };
+    }
+}
+
 class Row
 {
+    public function __construct(public readonly ?Chip $chip)
+    {
+    }
+
     /** @var PlayerSprint[] */
     private array $sprints = [];
 
@@ -110,7 +129,7 @@ function getPlayersData(int $playerId, array $elementsById, CacheInterface $pool
 
         $players = $picks['picks'];
 
-        $row = new Row();
+        $row = new Row(Chip::fromString($picks['active_chip']));
         $positions = [
             1 => [1, 2],
             2 => [3, 4, 5, 6, 7],
@@ -217,8 +236,15 @@ foreach ($rows as $gameWeek => $row) {
     $top = 5 + ($rowHeight * $gameWeek);
     $left = $width - 2;
 
+    $gameWeekTitle = $row->chip?->value ?? $gameWeek;
+    $class = $row->chip?->value;
+
     echo <<<HTML
-<div style="height: {$rowHeight}%; top: {$top}%; left: {$left}%" class="row element">{$gameWeek}</div>
+<div 
+  style="height: {$rowHeight}%; top: {$top}%; left: {$left}%" 
+  class="row element {$class}" 
+  title="Game week {$gameWeek}"
+>{$gameWeekTitle}</div>
 HTML;
 
 
@@ -264,6 +290,15 @@ echo <<<HTML
   color: #fff;
   background-color: #000;
   width: 2%;
+}
+
+.row.FH {
+  background-color: #5773ff;
+}
+
+.row.WC {
+  background-color: #8fff57;
+  color: #000;
 }
 
 .header {
