@@ -86,9 +86,15 @@ $filesystemAdapter = new Local('/var/tmp/cache');
 $filesystem = new Filesystem($filesystemAdapter);
 $pool = new FilesystemCachePool($filesystem);
 
-$key = 'bootstrap';
+$key = 'bootstrap.' . ($isDraft ? 'draft' : 'reg');
 if (!$bootstrap = $pool->get($key)) {
-    $pool->set($key, json_decode(file_get_contents('https://fantasy.premierleague.com/api/bootstrap-static/'), true));
+    if ($isDraft) {
+        $url = 'https://draft.premierleague.com/api/bootstrap-static';
+    } else {
+        $url = 'https://fantasy.premierleague.com/api/bootstrap-static/';
+    }
+
+    $pool->set($key, json_decode(file_get_contents($url), true));
     $bootstrap = $pool->get($key);
 }
 
