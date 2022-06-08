@@ -4,9 +4,10 @@ window.addEventListener('load', () => {
 
 function submitUser () {
   const http = axios
-  const leagueId = Number(document.getElementById('user-id').value)
+  const userId = Number(document.getElementById('user-id').value)
+  const draft = Number(document.getElementById('is-draft').checked) ? '/draft' : ''
 
-  http.get(`/transfers/${leagueId}`)
+  http.get(`/transfers/${userId}` + draft)
     .then(function (response) {
       document.getElementById('bar-chart-race').innerHTML = response.data
     })

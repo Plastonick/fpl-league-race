@@ -7,21 +7,21 @@ use Psr\SimpleCache\CacheInterface;
 
 include __DIR__ . '/../vendor/autoload.php';
 
-$playerId = getPlayerId();
+[$playerId, $isDraft] = parseRequest();
 
-function getPlayerId(): int
+function parseRequest(): array
 {
-    preg_match('/transfers\/(\d+)/', $_SERVER['REQUEST_URI'], $matches);
+    preg_match('/transfers\/(\d+)\/?(draft)?/', $_SERVER['REQUEST_URI'], $matches);
 
-    if (isset($matches[1])) {
-        return (int) $matches[1];
-    } else {
+    if (!isset($matches[1])) {
         $message = <<<HELP
 Please enter your player id in the URL, if your player ID were 123 you'd enter: http://leagueracefpl.info/transfers/123
 HELP;
 
         die($message);
     }
+
+    return [(int) $matches[1], ($matches[2] ?? false) === 'draft'];
 }
 
 class PlayerSprint
@@ -106,24 +106,30 @@ foreach ($elements as $element) {
 //second_name
 
 /**
- * @param int $playerId
+ * @param int $userId
  * @param array $elementsById
  *
  * @return Row[]
  */
-function getPlayersData(int $playerId, array $elementsById, CacheInterface $pool): array
+function getUserData(int $userId, array $elementsById, CacheInterface $pool, bool $isDraft): array
 {
     /** @var Row[] $rows */
     $rows = [];
 
     foreach (range(1, 38) as $gameWeek) {
-        $key = "event.picks.{$playerId}.{$gameWeek}";
+        $key = "event.picks.{$userId}.{$gameWeek}." . ($isDraft ? 'draft' : 'reg');
         if (!$pool->has($key)) {
+            if ($isDraft) {
+                $url = "https://draft.premierleague.com/api/entry/{$userId}/event/{$gameWeek}";
+            } else {
+                $url = "https://fantasy.premierleague.com/api/entry/{$userId}/event/{$gameWeek}/picks/";
+            }
+
             $pool->set(
                 $key,
                 json_decode(
                     file_get_contents(
-                        "https://fantasy.premierleague.com/api/entry/{$playerId}/event/{$gameWeek}/picks/"
+                        $url
                     ),
                     true
                 )
@@ -131,9 +137,9 @@ function getPlayersData(int $playerId, array $elementsById, CacheInterface $pool
         }
         $picks = $pool->get($key);
 
-        $players = $picks['picks'];
+        $players = $picks['picks'] ?? [];
 
-        $row = new Row(Chip::fromString($picks['active_chip']));
+        $row = new Row(Chip::fromString($picks['active_chip'] ?? null));
         $positions = [
             1 => [1, 2],
             2 => [3, 4, 5, 6, 7],
@@ -175,7 +181,7 @@ function getPlayersData(int $playerId, array $elementsById, CacheInterface $pool
     return $rows;
 }
 
-$rows = getPlayersData($playerId, $elementsById, $pool);
+$rows = getUserData($playerId, $elementsById, $pool, $isDraft);
 
 echo <<<HTML
 <div class="container">
@@ -367,8 +373,8 @@ echo <<<HTML
 }
 
 .leeds {
-  color: #FFCD00; 
-  background-color: #1D428A;
+  color: #1D428A; 
+  background-color: #FFCD00;
 }
 
 .liverpool {

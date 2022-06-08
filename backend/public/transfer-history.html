@@ -24,7 +24,13 @@
                             <label for="user-id">User ID</label>
                             <input id="user-id" type="text" placeholder="123" />
                         </div>
-                        <input type="submit" class="button" id="submit-user" value="Submit" />
+                        <div class="submit-control">
+                            <span id="draft-wrapper">
+                                <label for="is-draft">Draft</label>
+                                <input type="checkbox" id="is-draft">
+                            </span>
+                            <input type="submit" class="button" id="submit-user" value="Submit" />
+                        </div>
                     </form>
                 </div>
             </div>
@@ -97,6 +103,16 @@
 
     .submit>*:not(:last-child) {
         border-right: 0.5px solid #aaa;
+    }
+
+    .submit-control {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #draft-wrapper {
+        display: none;
     }
 
     .user-id-submit {
